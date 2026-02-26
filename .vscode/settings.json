@@ -1,0 +1,28 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^git rev-parse --is-inside-work-tree && git remote -v && git branch --show-current && git status --short$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwd && ls -la && git rev-parse --is-inside-work-tree$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^set -euo pipefail; cd /Users/hesamhakimi/Downloads/company; pwd; ls -la \\| head -n 5; if \\[ -d \\.git \\]; then echo GIT_REPO=1; else echo GIT_REPO=0; fi$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^set -euo pipefail; cd /Users/hesamhakimi/Downloads/company; git init -b main; git remote add origin https://github\\.com/hesam-hakimi/ticks\\.git; git remote -v$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^git init -b main && git remote add origin https://github\\.com/hesam-hakimi/ticks\\.git && git remote -v$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^git add \\. && git commit -m \"Initial project commit\"$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}
