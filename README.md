@@ -1,4 +1,4 @@
-# company_name Text-to-SQL (Phase 1 + Phase 2) — Reference Implementation
+# company_name Text-to-SQL Reference Implementation
 
 This repo contains a production-oriented prototype for:
 - **Phase 1**: Agentic solution (no Redis, no analytics charts required)
