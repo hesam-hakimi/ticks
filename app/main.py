@@ -11,6 +11,8 @@ Security/guardrails:
 
 from __future__ import annotations
 
+from app.env_loader import load_env
+
 import os
 
 from app.config import Settings
@@ -34,6 +36,7 @@ from app.autogen_framework import AgentManager
 
 
 def build_orchestrator():
+    load_env()  # load .env if present
     settings = Settings.load()
     logger = build_logger(settings.log_dir)
     tracer = TraceCollector()

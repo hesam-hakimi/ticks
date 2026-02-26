@@ -7,11 +7,14 @@ Usage:
 """
 
 from __future__ import annotations
+
+from app.env_loader import load_env
 import argparse
 from app.indexing.excel_loader import ExcelLoader
 
 
 def main() -> int:
+    load_env()  # load .env if present
     ap = argparse.ArgumentParser()
     ap.add_argument("--excel", required=True)
     args = ap.parse_args()

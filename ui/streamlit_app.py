@@ -12,6 +12,8 @@ import json
 import os
 import streamlit as st
 
+from app.env_loader import load_env
+
 from app.config import Settings
 from app.contracts.models import ChatRequest, UISettings
 from app.main import handle_chat
@@ -38,6 +40,7 @@ def _init_state(settings: Settings):
 
 
 def main():
+    load_env()  # load .env if present
     settings = Settings.load()
     _init_state(settings)
 

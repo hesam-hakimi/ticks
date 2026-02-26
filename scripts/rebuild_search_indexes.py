@@ -7,6 +7,8 @@ Usage:
 """
 
 from __future__ import annotations
+
+from app.env_loader import load_env
 import argparse
 
 from app.config import Settings
@@ -17,6 +19,7 @@ from app.indexing.search_index_manager import SearchIndexManager
 
 
 def main() -> int:
+    load_env()  # load .env if present
     ap = argparse.ArgumentParser()
     ap.add_argument("--excel", required=True, help="Path to rrdw_meta_data.xlsx")
     args = ap.parse_args()

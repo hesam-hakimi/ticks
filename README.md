@@ -49,3 +49,7 @@ The system can generate multi-query aggregated reports and return **business-fri
 - First-class AutoGen agents (AssistantAgent): intent routing, clarity, SQL generation, report planning, report writing.
 - FastPath templates for top common queries (~100) live in `app/fastpath/` for speed and consistency.
 - Analytics reports: planner -> execute 1–5 aggregated queries -> render Plotly/Seaborn charts -> produce executive markdown.
+
+
+## .env loading
+This project automatically loads environment variables from a `.env` file (if present) using `python-dotenv` via `app.env_loader.load_env()`.
