@@ -1,0 +1,283 @@
+intents:
+  executive_briefing_monthly:
+    label: "Executive briefing (monthly)"
+    roles:
+      - "CEO"
+      - "CFO"
+      - "CTO"
+    dataset: "executive_financial_overview_monthly"
+    required_columns:
+      - "as_of_month"
+      - "net_revenue"
+      - "operating_expense"
+      - "net_income"
+      - "nim"
+      - "efficiency_ratio"
+      - "lcr"
+      - "nsfr"
+      - "cet1_ratio"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "net_income"
+        title: "Net income (12 months)"
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "nim"
+        title: "NIM (12 months)"
+  profitability_trend:
+    label: "Profitability trend"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "executive_financial_overview_monthly"
+    required_columns:
+      - "as_of_month"
+      - "net_revenue"
+      - "net_income"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "net_income"
+        title: "Net income trend"
+  efficiency_trend:
+    label: "Efficiency ratio trend"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "executive_financial_overview_monthly"
+    required_columns:
+      - "as_of_month"
+      - "efficiency_ratio"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "efficiency_ratio"
+        title: "Efficiency ratio trend"
+  balance_sheet_trend:
+    label: "Balance sheet trend"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "balance_sheet_trends_monthly"
+    required_columns:
+      - "as_of_month"
+      - "total_loans"
+      - "total_deposits"
+      - "loan_to_deposit_ratio"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "total_deposits"
+        title: "Deposits trend"
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "loan_to_deposit_ratio"
+        title: "Loan-to-deposit ratio"
+  product_mix_trend:
+    label: "Product mix trend"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "product_mix_trends_monthly"
+    required_columns:
+      - "as_of_month"
+      - "product"
+      - "balance"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "balance"
+        title: "Deposits by product (trend)"
+  region_trend:
+    label: "Region trend"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "region_trends_monthly"
+    required_columns:
+      - "as_of_month"
+      - "region"
+      - "deposits"
+      - "growth_mom_pct"
+      - "nps"
+      - "churn_pct"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "deposits"
+        title: "Deposits by region"
+      -
+        library: "plotly"
+        type: "bar"
+        x: "region"
+        y: "churn_pct"
+        title: "Churn by region (latest month)"
+  churn_cohort_trend:
+    label: "Churn cohorts"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "customer_churn_cohorts_monthly"
+    required_columns:
+      - "as_of_month"
+      - "segment"
+      - "channel"
+      - "active_customers"
+      - "new_customers"
+      - "churned_customers"
+      - "churn_rate"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "churn_rate"
+        title: "Churn rate trend"
+  credit_quality_trend:
+    label: "Credit quality trend"
+    roles:
+      - "CFO"
+    dataset: "credit_quality_trends_monthly"
+    required_columns:
+      - "as_of_month"
+      - "portfolio"
+      - "npl_ratio"
+      - "stage2_ratio"
+      - "provision_coverage"
+    default_filters:
+      window_months: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_month"
+        y: "npl_ratio"
+        title: "NPL ratio trend"
+      -
+        library: "plotly"
+        type: "bar"
+        x: "portfolio"
+        y: "stage2_ratio"
+        title: "Stage 2 ratio (latest month)"
+  branch_geo_map:
+    label: "Branch geo map"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "branch_geo_weekly"
+    required_columns:
+      - "as_of_week"
+      - "branch_id"
+      - "branch_name"
+      - "lat"
+      - "lon"
+      - "deposits"
+      - "risk_score"
+      - "growth_wow_pct"
+    default_filters:
+      window_weeks: 8
+    charts:
+      -
+        library: "plotly"
+        type: "map"
+        lat: "lat"
+        lon: "lon"
+        size: "deposits"
+        title: "Deposits by branch (map)"
+  branch_opportunity_quadrant:
+    label: "Branch opportunity quadrant"
+    roles:
+      - "CEO"
+      - "CFO"
+    dataset: "branch_geo_weekly"
+    required_columns:
+      - "as_of_week"
+      - "branch_name"
+      - "deposits"
+      - "growth_wow_pct"
+      - "risk_score"
+    default_filters:
+      as_of_week: "LATEST"
+    charts:
+      -
+        library: "plotly"
+        type: "scatter"
+        x: "growth_wow_pct"
+        y: "risk_score"
+        title: "Growth vs risk (latest week)"
+  tech_reliability_trend:
+    label: "Tech reliability trend"
+    roles:
+      - "CTO"
+    dataset: "tech_reliability_trends_weekly"
+    required_columns:
+      - "as_of_week"
+      - "service"
+      - "uptime"
+      - "incident_count"
+      - "p95_latency_ms"
+      - "mttr_minutes"
+    default_filters:
+      window_weeks: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_week"
+        y: "p95_latency_ms"
+        title: "Latency trend (p95)"
+      -
+        library: "plotly"
+        type: "bar"
+        x: "service"
+        y: "incident_count"
+        title: "Incidents by service (latest week)"
+  change_failure_trend:
+    label: "Change failure trend"
+    roles:
+      - "CTO"
+    dataset: "tech_reliability_trends_weekly"
+    required_columns:
+      - "as_of_week"
+      - "service"
+      - "change_failure_rate"
+    default_filters:
+      window_weeks: 12
+    charts:
+      -
+        library: "plotly"
+        type: "line"
+        x: "as_of_week"
+        y: "change_failure_rate"
+        title: "Change failure rate trend"

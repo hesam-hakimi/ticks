@@ -1,0 +1,110 @@
+{
+  "questions": [
+    {
+      "id": "Q01",
+      "text": "Give me the morning briefing",
+      "roles": [
+        "CEO",
+        "CFO",
+        "CTO"
+      ],
+      "intent": "executive_briefing_monthly"
+    },
+    {
+      "id": "Q02",
+      "text": "Show revenue and net income trend over the last 12 months",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "profitability_trend"
+    },
+    {
+      "id": "Q03",
+      "text": "Show efficiency ratio trend and the main implication",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "efficiency_trend"
+    },
+    {
+      "id": "Q04",
+      "text": "Show deposits and loans trend (loan-to-deposit ratio)",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "balance_sheet_trend"
+    },
+    {
+      "id": "Q05",
+      "text": "Show product mix trend for deposits",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "product_mix_trend"
+    },
+    {
+      "id": "Q06",
+      "text": "Show region trends: growth, churn, and NPS",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "region_trend"
+    },
+    {
+      "id": "Q07",
+      "text": "Show churn trend by segment and channel",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "churn_cohort_trend"
+    },
+    {
+      "id": "Q08",
+      "text": "Show credit quality trend by portfolio (NPL and stage 2)",
+      "roles": [
+        "CFO"
+      ],
+      "intent": "credit_quality_trend"
+    },
+    {
+      "id": "Q09",
+      "text": "Show branch map: deposits and risk score",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "branch_geo_map"
+    },
+    {
+      "id": "Q10",
+      "text": "Show branch opportunity quadrant (growth vs risk)",
+      "roles": [
+        "CEO",
+        "CFO"
+      ],
+      "intent": "branch_opportunity_quadrant"
+    },
+    {
+      "id": "Q11",
+      "text": "Show tech reliability trend: uptime, incidents, latency",
+      "roles": [
+        "CTO"
+      ],
+      "intent": "tech_reliability_trend"
+    },
+    {
+      "id": "Q12",
+      "text": "Show change failure rate trend by service",
+      "roles": [
+        "CTO"
+      ],
+      "intent": "change_failure_trend"
+    }
+  ]
+}
