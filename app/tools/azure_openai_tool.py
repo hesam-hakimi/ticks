@@ -1,6 +1,6 @@
 """app.tools.azure_openai_tool
 
-Azure OpenAI tool using **Managed Identity (MSI)** authentication.
+Azure OpenAI tool supporting **MSI or API key** authentication.
 
 Pattern (matches your notebook):
   msi = ManagedIdentityCredential(client_id=AZURE_MSI_CLIENT_ID)
@@ -19,7 +19,7 @@ from typing import Any
 
 from openai import AzureOpenAI
 
-from app.auth import get_aoai_token_provider
+from app.auth import get_aoai_client_kwargs
 
 
 def _extract_json(text: str) -> dict[str, Any]:
@@ -48,7 +48,7 @@ class AzureOpenAITool:
         self.client = AzureOpenAI(
             api_version="2024-12-01-preview",
             azure_endpoint=self.endpoint,
-            azure_ad_token_provider=get_aoai_token_provider(),
+            **get_aoai_client_kwargs(),
         )
 
     def _chat(self, system: str, user: str) -> dict[str, Any]:

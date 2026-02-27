@@ -1,6 +1,6 @@
 """app.tools.azure_search_tool
 
-Azure AI Search tool using **Managed Identity (MSI)** authentication.
+Azure AI Search tool supporting **MSI or API key** authentication.
 
 This matches the pattern in your VM notebook:
   msi = ManagedIdentityCredential(client_id=...)
@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Any
 from azure.search.documents import SearchClient
 
-from app.auth import get_msi_credential
+from app.auth import get_search_credential
 
 
 class AzureAISearchTool:
@@ -29,7 +29,7 @@ class AzureAISearchTool:
         self.index_field = index_field
         self.index_table = index_table
         self.index_relationship = index_relationship
-        self.credential = get_msi_credential()
+        self.credential = get_search_credential()
         self.logger = logger
 
     def _client(self, index_name: str) -> SearchClient:

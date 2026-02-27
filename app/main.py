@@ -1,24 +1,23 @@
 """app.main
 
-Wiring for tools + policies + first-class AutoGen agents + orchestrator.
+Wiring for tools + policies + agents + orchestrator.
 
-Security/guardrails:
-- Read-only SQL policy (SELECT-only)
-- Result limits (rows/cols) and execution timeout
-- Bounded retries (MAX_RETRY_ATTEMPTS)
-- Debug traces (only shown in debug mode)
+Two-lane design:
+- Primary: "currently available" in-memory datasets (fast)
+- Fallback: existing metadata + SQL pipeline (only when user confirms)
 """
 
 from __future__ import annotations
 
-from app.env_loader import load_env
-
 import os
 
+from app.env_loader import load_env
 from app.config import Settings
 from app.logging_utils import build_logger
 from app.tracing import TraceCollector
+
 from app.orchestrator import Orchestrator
+from app.orchestrator_fallback import FallbackOrchestrator
 
 from app.policy.sql_policy import SqlPolicy
 from app.policy.limits_policy import LimitsPolicy
@@ -35,12 +34,13 @@ from app.agents.db_executor import DBExecutorAgent
 from app.autogen_framework import AgentManager
 
 
-def build_orchestrator():
+def build_orchestrator() -> Orchestrator:
     load_env()  # load .env if present
     settings = Settings.load()
     logger = build_logger(settings.log_dir)
     tracer = TraceCollector()
 
+    # Tools for fallback path
     search_tool = AzureAISearchTool(
         endpoint=settings.azure_search_endpoint,
         index_field=settings.index_field,
@@ -72,10 +72,9 @@ def build_orchestrator():
     db_executor = DBExecutorAgent(db_tool, limits_policy, tracer, logger)
 
     agent_manager = AgentManager(logger=logger)
-
     max_retries = int(os.environ.get("MAX_RETRY_ATTEMPTS", "5"))
 
-    return Orchestrator(
+    fallback = FallbackOrchestrator(
         agent_manager=agent_manager,
         metadata_retriever=metadata_retriever,
         sql_safety=sql_safety,
@@ -84,6 +83,13 @@ def build_orchestrator():
         tracer=tracer,
         logger=logger,
         max_retry_attempts=max_retries,
+    )
+
+    return Orchestrator(
+        agent_manager=agent_manager,
+        tracer=tracer,
+        logger=logger,
+        fallback=fallback,
     )
 
 

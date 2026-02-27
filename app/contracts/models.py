@@ -7,7 +7,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal, Optional
 
-Intent = Literal["DATA_QA", "ANALYTICS_REPORT", "GENERAL_QA", "OUT_OF_SCOPE"]
+Intent = Literal["DATA_QA", "ANALYTICS_REPORT", "GENERAL_QA", "OUT_OF_SCOPE", "GREETING"]
 Backend = Literal["sqlserver", "sqlite"]
 
 
@@ -28,6 +28,7 @@ class ChatRequest:
     message: str
     ui: UISettings
     history: list[dict[str, str]]  # [{"role":"user|assistant","content":"..."}]
+    meta: Optional[dict[str, Any]] = None  # role, selected_intent, confirmation flags
 
 
 @dataclass
@@ -105,7 +106,7 @@ class StepTrace:
 @dataclass
 class ChatResponse:
     """Final response from orchestrator."""
-    status: Literal["ok", "need_clarification", "blocked", "error"]
+    status: Literal["ok", "need_clarification", "need_confirmation", "blocked", "error"]
     answer: str
     followups: list[str]
     citations: list[Citation]
